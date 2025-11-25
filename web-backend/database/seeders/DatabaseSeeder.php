@@ -1,0 +1,36 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+        // Admin account - use firstOrCreate to prevent duplicates
+        User::firstOrCreate(
+            ['email' => 'admin@gmail.com'],
+            [
+                'username' => 'admin',
+                'password' => Hash::make('admin123'),
+                'role' => 'admin',
+                'first_name' => 'System',
+                'last_name' => 'Administrator',
+                'phone' => '+1234567890',
+                'address' => 'System Address',
+                'is_active' => true,
+                'email_verified_at' => now(),
+            ]
+        );
+
+        $this->command->info('Admin user created/verified successfully!');
+        $this->command->info('Email: admin@gmail.com');
+        $this->command->info('Password: admin123');
+    }
+}
